@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}MFA Verification{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">MFA Verification</h2>
+<p class="mb-4">Please copy this MFA code: <strong>{{ mfa_code }}</strong></p>
+<form method="POST" class="max-w-md">
+    <div class="mb-4">
+        <label class="block text-gray-700">Enter MFA Code</label>
+        <input type="text" name="mfa_code" class="w-full p-2 border rounded" required>
+    </div>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Verify</button>
+</form>
+{% endblock %}

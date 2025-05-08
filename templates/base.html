@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IWB - {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 p-4 text-white">
+        <div class="container mx-auto flex justify-between">
+            <a href="{{ url_for('home') }}" class="text-2xl font-bold">IWB</a>
+            <div>
+                {% if session.user_id %}
+                    <a href="{{ url_for('dashboard') }}" class="mr-4">Dashboard</a>
+                    {% if session.role == 'Client' or session.role == 'Sales' %}
+                        <a href="{{ url_for('products') }}" class="mr-4">Products</a>
+                    {% endif %}
+                    {% if session.role == 'Client' or session.role == 'Sales' %}
+                        <a href="{{ url_for('queries') }}" class="mr-4">Queries</a>
+                    {% endif %}
+                    {% if session.role == 'Finance' or session.role == 'Investor' %}
+                        <a href="{{ url_for('income_statement') }}" class="mr-4">Income Statement</a>
+                    {% endif %}
+                    {% if session.role == 'Partner' %}
+                        <a href="{{ url_for('iwc_access') }}" class="mr-4">IWC Access</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="mr-4">Login</a>
+                    <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto p-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="bg-green-200 text-green-800 p-4 rounded mb-4">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

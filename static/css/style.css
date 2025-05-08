@@ -1,0 +1,52 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.welcome-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 2s ease-in;
+}
+
+.welcome-box {
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.login-btn {
+    background: linear-gradient(to right, #1e40af, #3b82f6);
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.register-btn {
+    background: linear-gradient(to right, #15803d, #22c55e);
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

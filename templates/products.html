@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Products</h2>
+<form method="POST" class="mb-4">
+    <label class="block text-gray-700 mb-2">Filter by Category</label>
+    <select name="category" class="p-2 border rounded">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded ml-2">Filter</button>
+</form>
+<div class="grid grid-cols-3 gap-4">
+    {% for product in products %}
+        <div class="border p-4 rounded">
+            <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" class="w-full h-48 object-cover mb-2">
+            <h3 class="text-lg font-bold">{{ product.name }}</h3>
+            <p>Category: {{ product.category }}</p>
+            <p>Price: M{{ product.price }}</p>
+            {% if session.role == 'Client' %}
+                <form method="POST" action="{{ url_for('buy_product', product_id=product.id) }}">
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Purchase</button>
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

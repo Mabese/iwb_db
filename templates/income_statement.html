@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Income Statement{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Income Statement</h2>
+{% if role == 'Finance' %}
+    <form method="POST" class="max-w-md mb-4">
+        <div class="mb-4">
+            <label class="block text-gray-700">Month (YYYY-MM)</label>
+            <input type="text" name="month" class="w-full p-2 border rounded" placeholder="YYYY-MM" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Revenue</label>
+            <input type="number" name="revenue" step="0.01" class="w-full p-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Expenses</label>
+            <input type="number" name="expenses" step="0.01" class="w-full p-2 border rounded" required>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Add Statement</button>
+    </form>
+{% endif %}
+<h3 class="text-xl font-bold mb-2">Monthly Statements</h3>
+<table class="w-full border">
+    <tr class="bg-gray-200">
+        <th class="p-2">Month</th>
+        <th class="p-2">Revenue</th>
+        <th class="p-2">Expenses</th>
+        <th class="p-2">Profit</th>
+    </tr>
+    {% for statement in statements %}
+        <tr>
+            <td class="p-2">{{ statement.month }}</td>
+            <td class="p-2">M{{ statement.revenue }}</td>
+            <td class="p-2">M{{ statement.expenses }}</td>
+            <td class="p-2">M{{ statement.revenue - statement.expenses }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<h3 class="text-xl font-bold mb-2 mt-4">Performance Chart</h3>
+<canvas id="incomeChart" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('incomeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ chart_data.labels | tojson }},
+            datasets: [
+                {
+                    label: 'Revenue',
+                    data: {{ chart_data.revenue | tojson }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                },
+                {
+                    label: 'Expenses',
+                    data: {{ chart_data.expenses | tojson }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                },
+                {
+                    label: 'Profit',
+                    data: {{ chart_data.profit | tojson }},
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">WELCOME, {{ session.username }} ({{ role }})</h2>
+{% if role == 'Partner' %}
+    <h3 class="text-xl font-bold mb-2">Products</h3>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.category }} - M{{ product.price }}</li>
+        {% endfor %}
+    </ul>
+    <h3 class="text-xl font-bold mb-2">Sales</h3>
+    <ul>
+        {% for sale in sales %}
+            <li>Sale ID: {{ sale.id }} - Amount: M{{ sale.amount }} - Date: {{ sale.date }}</li>
+        {% endfor %}
+    </ul>
+    <h3 class="text-xl font-bold mb-2">Income Statements</h3>
+    <ul>
+        {% for statement in statements %}
+            <li>{{ statement.month }} - Revenue: M{{ statement.revenue }} - Expenses: M{{ statement.expenses }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Access your features from the navigation bar.</p>
+{% endif %}
+{% endblock %}

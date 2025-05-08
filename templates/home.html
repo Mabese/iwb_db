@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2070&auto=format&fit=crop');">
+    <div class="welcome-box p-10 text-center">
+        <h1 class="welcome-text mb-6">Welcome to IWB</h1>
+        <p class="text-xl text-gray-800 mb-8">Recycle computer parts with us!</p>
+        <div class="space-x-4">
+            <a href="{{ url_for('login') }}" class="login-btn text-white">Login</a>
+            <a href="{{ url_for('register') }}" class="register-btn text-white">Register</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
